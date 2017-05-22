@@ -5,21 +5,188 @@
 	<link rel="stylesheet" type="text/css" href="assets/stylesheets/main.css">
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>
 	<script type="text/javascript" src="assets\lib\paper-full.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.3/howler.min.js"></script>
+
 	<script type="text/paperscript" canvas="myCanvas">
-	var circles = [];
+
+		var keyData = {
+			a: {
+				color: "aqua",
+				sound: new Howl({ 
+					src: ['assets/sounds/bubbles.mp3']
+				})
+			},
+			b: {
+				color: "azure",
+				sound: new Howl({ 
+					src: ['assets/sounds/clay.mp3']
+				})
+			},
+			c: {
+				color: "beige",
+				sound: new Howl({ 
+					src: ['assets/sounds/corona.mp3']
+				})
+			},
+			d: {
+				color: "snow",
+				sound: new Howl({ 
+					src: ['assets/sounds/dotted-spiral.mp3']
+				})
+			},
+			e: {
+				color: "blue",
+				sound: new Howl({ 
+					src: ['assets/sounds/flash-1.mp3']
+				})
+			},
+			f: {
+				color: "chocolate",
+				sound: new Howl({ 
+					src: ['assets/sounds/flash-2.mp3']
+				})
+			},
+			g: {
+				color: "coral",
+				sound: new Howl({ 
+					src: ['assets/sounds/flash-3.mp3']
+				})
+			},
+			h: {
+				color: "tomato",
+				sound: new Howl({ 
+					src: ['assets/sounds/glimmer.mp3']
+				})
+			},
+			i: {
+				color: "darkred",
+				sound: new Howl({ 
+					src: ['assets/sounds/moon.mp3']
+				})
+			},
+			j: {
+				color: "firebrick",
+				sound: new Howl({ 
+					src: ['assets/sounds/pinwheel.mp3']
+				})
+			},
+			k: {
+				color: "fuchsia",
+				sound: new Howl({ 
+					src: ['assets/sounds/piston-1.mp3']
+				})
+			},
+			l: {
+				color: "gold",
+				sound: new Howl({ 
+					src: ['assets/sounds/piston-2.mp3']
+				})
+			},
+			m: {
+				color: "green",
+				sound: new Howl({ 
+					src: ['assets/sounds/piston-3.mp3']
+				})
+			},
+			n: {
+				color: "hotpink",
+				sound: new Howl({ 
+					src: ['assets/sounds/prism-1.mp3']
+				})
+			},
+			o: {
+				color: "ivory",
+				sound: new Howl({ 
+					src: ['assets/sounds/prism-2.mp3']
+				})
+			},
+			p: {
+				color: "lime",
+				sound: new Howl({ 
+					src: ['assets/sounds/prism-3.mp3']
+				})
+			},
+			q: {
+				color: "mintcream",
+				sound: new Howl({ 
+					src: ['assets/sounds/splits.mp3']
+				})
+			},
+			r: {
+				color: "orchid",
+				sound: new Howl({ 
+					src: ['assets/sounds/squiggle.mp3']
+				})
+			},
+			s: {
+				color: "peru",
+				sound: new Howl({ 
+					src: ['assets/sounds/strike.mp3']
+				})
+			},
+			t: {
+				color: "red",
+				sound: new Howl({ 
+					src: ['assets/sounds/suspension.mp3']
+				})
+			},
+			u: {
+				color: "rosybrown",
+				sound: new Howl({ 
+					src: ['assets/sounds/timer.mp3']
+				})
+			},
+			v: {
+				color: "royalblue",
+				sound: new Howl({ 
+					src: ['assets/sounds/ufo.mp3']
+				})
+			},
+			w: {
+				color: "salmon",
+				sound: new Howl({ 
+					src: ['assets/sounds/veil.mp3']
+				})
+			},
+			x: {
+				color: "seagreen",
+				sound: new Howl({ 
+					src: ['assets/sounds/wipe.mp3']
+				})
+			},
+			y: {
+				color: "silver",
+				sound: new Howl({ 
+					src: ['assets/sounds/zig-zag.mp3']
+				})
+			},
+			z: {
+				color: "slategray",
+				sound: new Howl({ 
+					src: ['assets/sounds/confetti.mp3']
+				})
+			}
+		}
+		var circles = [];
+		
 		function onKeyDown(event) {
-			var maxPoint = new Point(view.size.width, view.size.height);
-			var randomPoint = Point.random();
-			var point = maxPoint * randomPoint;
-			var newCircle = new Path.Circle(point, 500);
-			newCircle.fillColor = "orange";
-			circles.push(newCircle);
+			if(keyData[event.key]) {
+				keyData[event.key].sound.play();
+				var maxPoint = new Point(view.size.width, view.size.height);
+				var randomPoint = Point.random();
+				var point = maxPoint * randomPoint;
+				var newCircle = new Path.Circle(point, 500);
+				newCircle.fillColor = keyData[event.key].color;
+
+				circles.push(newCircle);
+			}
 		}
 
 		function onFrame(event){
 			for(var i = 0; i < circles.length; i++) {
 				circles[i].fillColor.hue += 1;
 				circles[i].scale(.9);
+
 			}
 
 		}
